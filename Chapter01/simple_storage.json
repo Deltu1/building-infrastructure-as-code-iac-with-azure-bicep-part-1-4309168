@@ -1,0 +1,92 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.25.53.49325",
+      "templateHash": "1983868521278747290"
+    }
+  },
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "The Azure region for the deployment"
+      }
+    },
+    "accountName": {
+      "type": "string",
+      "defaultValue": "kinetecostg0220"
+    },
+    "aspName": {
+      "type": "string",
+      "defaultValue": "asp-bicepwebsites0220"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2021-02-01",
+      "name": "[parameters('accountName')]",
+      "location": "[parameters('location')]",
+      "kind": "StorageV2",
+      "sku": {
+        "name": "Standard_LRS"
+      },
+      "metadata": {
+        "description": "A simple test storage account"
+      }
+    },
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2022-03-01",
+      "name": "[parameters('aspName')]",
+      "kind": "app",
+      "location": "[parameters('location')]",
+      "tags": {
+        "Environment": "Test",
+        "Project": "Bicep-Part1"
+      },
+      "properties": {
+        "serverFarmId": 7333,
+        "name": "[parameters('aspName')]",
+        "workerSize": "Default",
+        "workerSizeId": 0,
+        "currentWorkerSize": "Default",
+        "currentWorkerSizeId": 0,
+        "currentNumberOfWorkers": 1,
+        "webSpace": "bicep-part1-webapp-eastus2-EastUS2webspace",
+        "planName": "VirtualDedicatedPlan",
+        "computeMode": "Dedicated",
+        "perSiteScaling": false,
+        "elasticScaleEnabled": false,
+        "maximumElasticWorkerCount": 1,
+        "isSpot": false,
+        "tags": {
+          "Environment": "Test",
+          "Project": "Bicep-Part1"
+        },
+        "kind": "app",
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "mdmId": "waws-prod-bn1-197_7333",
+        "targetWorkerCount": 0,
+        "targetWorkerSizeId": 0,
+        "zoneRedundant": false
+      },
+      "sku": {
+        "name": "B1",
+        "tier": "Basic",
+        "size": "B1",
+        "family": "B",
+        "capacity": 1
+      },
+      "metadata": {
+        "description": "Generated from /subscriptions/xxx"
+      }
+    }
+  ]
+}
